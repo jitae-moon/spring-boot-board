@@ -14,7 +14,7 @@ management:
 spring:
   config:
     activate:
-      profile: dev
+      on-profile: dev
   datasource:
     url: jdbc:mysql://localhost:3308/board
     username: ${MYSQL_USERNAME}
@@ -32,20 +32,25 @@ spring:
   h2:
     console:
       enabled: true
-
-sql:
-  init:
-    mode: always
+  sql:
+    init:
+      mode: always
 
 ---
 
 spring:
   config:
-    active:
+    activate:
       on-profile: test
   datasource:
-    url: jdbc:h2:mem:board
+    url: jdbc:h2:mem:board;mode=mysql
+    username: sa
+  jpa:
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+  test:
+    database:
+      replace: none
 
-sql:
-  init:
-    mode: always

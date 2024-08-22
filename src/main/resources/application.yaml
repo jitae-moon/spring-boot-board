@@ -1,0 +1,51 @@
+spring:
+  profiles:
+    active: dev
+
+---
+
+debug: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  config:
+    activate:
+      profile: dev
+  datasource:
+    url: jdbc:mysql://localhost:3308/board
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  h2:
+    console:
+      enabled: true
+
+sql:
+  init:
+    mode: always
+
+---
+
+spring:
+  config:
+    active:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:board
+
+sql:
+  init:
+    mode: always

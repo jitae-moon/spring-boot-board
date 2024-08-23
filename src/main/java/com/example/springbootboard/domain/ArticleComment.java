@@ -17,7 +17,7 @@ public class ArticleComment extends AuditingFields {
     private Long id;
 
     @Setter
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10000)
     private String content;
 
     @ManyToOne

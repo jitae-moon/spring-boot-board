@@ -1,6 +1,38 @@
 spring:
   profiles:
+    group:
+      dev:
+        - common
+        - dev
+      test:
+        - common
+        - test
     active: dev
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: common
+  data:
+    rest:
+      base-path: /api
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  sql:
+    init:
+      mode: always
+  main:
+    banner-mode: off
 
 ---
 
@@ -19,22 +51,13 @@ spring:
     url: jdbc:mysql://localhost:3308/board
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
-  jpa:
-    defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: create
-    open-in-view: false
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        default_batch_fetch_size: 100
-  h2:
-    console:
-      enabled: true
   sql:
     init:
       mode: always
+  data:
+    rest:
+      base-path: /api
+      detection-strategy: annotated
 
 ---
 
@@ -45,12 +68,9 @@ spring:
   datasource:
     url: jdbc:h2:mem:board;mode=mysql
     username: sa
-  jpa:
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
+  h2:
+    console:
+      enabled: true
   test:
     database:
       replace: none
-

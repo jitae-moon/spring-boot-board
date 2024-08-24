@@ -59,6 +59,11 @@ spring:
       base-path: /api
       detection-strategy: annotated
 
+kakao:
+  rest:
+    api:
+      key: ${KAKAO_REST_API_KEY}
+
 ---
 
 spring:

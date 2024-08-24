@@ -48,7 +48,7 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mysql://localhost:3308/board
+    url: jdbc:mysql://localhost:3309/board
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
   sql:

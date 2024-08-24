@@ -1,0 +1,5 @@
+FROM mysql
+
+ENV TZ=Asia/SEOUL
+
+EXPOSE 3306

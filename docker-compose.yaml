@@ -1,0 +1,20 @@
+services:
+  spring-boot-board-mysql:
+    container_name: spring-boot-board-mysql
+    build:
+      dockerfile: Dockerfile
+      context: ./database
+    image: jitaemoon5/spring-boot-board-mysql
+    environment:
+      - MYSQL_DATABASE=board
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "3309:3306"
+  spring-boot-board-redis:
+    container_name: spring-boot-board-redis
+    build:
+      dockerfile: Dockerfile
+      context: ./redis
+    image: jitaemoon5/spring-boot-board-redis
+    ports:
+      - "6379:6379"

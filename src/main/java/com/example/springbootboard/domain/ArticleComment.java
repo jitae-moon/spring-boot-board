@@ -23,15 +23,19 @@ public class ArticleComment extends AuditingFields {
     @ManyToOne
     private Article article;
 
+    @ManyToOne
+    private UserAccount userAccount;
+
     protected ArticleComment() { }
 
-    protected ArticleComment(String content, Article article) {
+    protected ArticleComment(String content, Article article, UserAccount userAccount) {
         this.content = content;
         this.article = article;
+        this.userAccount = userAccount;
     }
 
-    public static ArticleComment of(String content, Article article) {
-        return new ArticleComment(content, article);
+    public static ArticleComment of(String content, Article article, UserAccount userAccount) {
+        return new ArticleComment(content, article, userAccount);
     }
 
     @Override

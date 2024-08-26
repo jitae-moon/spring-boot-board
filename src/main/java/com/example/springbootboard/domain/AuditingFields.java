@@ -31,6 +31,6 @@ public class AuditingFields {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate
-    private String modifiedAt;
+    private LocalDateTime modifiedAt;
 
 }

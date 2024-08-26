@@ -35,16 +35,20 @@ public class Article extends AuditingFields {
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
+    @ManyToOne
+    private UserAccount userAccount;
+
     protected Article() { }
 
-    private Article(String title, String content, String hashtag) {
+    private Article(String title, String content, String hashtag, UserAccount userAccount) {
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
+        this.userAccount = userAccount;
     }
 
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title, content, hashtag);
+    public static Article of(String title, String content, String hashtag, UserAccount userAccount) {
+        return new Article(title, content, hashtag, userAccount);
     }
 
 }

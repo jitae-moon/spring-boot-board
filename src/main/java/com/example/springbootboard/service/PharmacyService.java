@@ -32,7 +32,7 @@ public class PharmacyService {
     }
 
     public List<Pharmacy> getPharmacies() {
-        return null;
+        return pharmacyRepository.findAll();
     }
 
 }

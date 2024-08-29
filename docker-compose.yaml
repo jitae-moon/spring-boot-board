@@ -8,6 +8,8 @@ services:
     environment:
       - MYSQL_DATABASE=board
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./database/init:/docker-entrypoint-initdb.d
     ports:
       - "3309:3306"
   spring-boot-board-redis:

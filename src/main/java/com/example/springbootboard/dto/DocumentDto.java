@@ -16,9 +16,16 @@ public class DocumentDto {
     private String addressName;
 
     @JsonProperty("x")
-    private String longitude;
+    private double longitude;
 
     @JsonProperty("y")
-    private String latitude;
+    private double latitude;
+
+    // Added for another Kakao API
+    @JsonProperty("place_name")
+    private String placeName;
+
+    @JsonProperty("distance")
+    private double distance;
 
 }

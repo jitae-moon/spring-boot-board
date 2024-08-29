@@ -19,8 +19,9 @@ public class Pharmacy extends AuditingFields {
 
     @Setter private String name;
     @Setter private String address;
-    @Setter private String latitude;
-    @Setter private String longitude;
+    @Setter private String contact;
+    @Setter private double latitude;
+    @Setter private double longitude;
 
     public void changeAddress(String address) {
         this.address = address;
@@ -28,14 +29,14 @@ public class Pharmacy extends AuditingFields {
 
     protected Pharmacy() { }
 
-    private Pharmacy(String name, String address, String latitude, String longitude) {
+    private Pharmacy(String name, String address, double latitude, double longitude) {
         this.name = name;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public static Pharmacy of(String name, String address, String latitude, String longitude) {
+    public static Pharmacy of(String name, String address, double latitude, double longitude) {
         return new Pharmacy(name, address, latitude, longitude);
     }
 

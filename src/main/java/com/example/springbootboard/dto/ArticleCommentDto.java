@@ -20,7 +20,7 @@ public record ArticleCommentDto(
         return new ArticleCommentDto(id, content, createdBy, createdAt, modifiedBy, modifiedAt, article, userAccount);
     }
 
-    public ArticleCommentDto from(ArticleComment articleComment) {
+    public static ArticleCommentDto from(ArticleComment articleComment) {
         return new ArticleCommentDto(
                 articleComment.getId(),
                 articleComment.getContent(),

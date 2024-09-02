@@ -27,7 +27,7 @@ public record ArticleDto(
         return new ArticleDto(title, content, hashtag, createdBy, createdAt, modifiedBy, modifiedAt, userAccount);
     }
 
-    public ArticleDto from(Article article) {
+    public static ArticleDto from(Article article) {
         return new ArticleDto(article.getTitle(),
                 article.getContent(),
                 article.getHashtag(),

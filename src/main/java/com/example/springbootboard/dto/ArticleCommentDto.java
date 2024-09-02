@@ -7,6 +7,7 @@ import com.example.springbootboard.domain.UserAccount;
 import java.time.LocalDateTime;
 
 public record ArticleCommentDto(
+        Long id,
         String content,
         String createdBy,
         LocalDateTime createdAt,
@@ -15,12 +16,14 @@ public record ArticleCommentDto(
         Article article,
         UserAccount userAccount
 ) {
-    public static ArticleCommentDto of(String content, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, Article article, UserAccount userAccount) {
-        return new ArticleCommentDto(content, createdBy, createdAt, modifiedBy, modifiedAt, article, userAccount);
+    public static ArticleCommentDto of(Long id, String content, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, Article article, UserAccount userAccount) {
+        return new ArticleCommentDto(id, content, createdBy, createdAt, modifiedBy, modifiedAt, article, userAccount);
     }
 
     public ArticleCommentDto from(ArticleComment articleComment) {
-        return new ArticleCommentDto(articleComment.getContent(),
+        return new ArticleCommentDto(
+                articleComment.getId(),
+                articleComment.getContent(),
                 articleComment.getCreatedBy(),
                 articleComment.getCreatedAt(),
                 articleComment.getModifiedBy(),

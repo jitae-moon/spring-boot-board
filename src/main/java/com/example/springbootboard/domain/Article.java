@@ -31,10 +31,12 @@ public class Article extends AuditingFields {
     private String hashtag;
 
     @ToString.Exclude
+    @OrderBy("createdAt DESC")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
+    @Setter
     @ManyToOne
     private UserAccount userAccount;
 

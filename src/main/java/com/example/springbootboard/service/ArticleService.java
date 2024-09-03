@@ -20,8 +20,7 @@ import org.springframework.util.ObjectUtils;
 @Service
 public class ArticleService {
 
-    private ArticleRepository articleRepository;
-
+    private final ArticleRepository articleRepository;
 
     @Transactional(readOnly = true)
     public Page<ArticleDto> getArticles(SearchType searchType, String searchValue, Pageable pageable) {

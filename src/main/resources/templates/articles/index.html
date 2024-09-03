@@ -16,12 +16,39 @@
 	</header>
 
 	<main class="container" th:object="${articles}">
-		<div class="row">
-		<div class="input-group mb-3">
-			<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-			<button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-		</div>
-		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 card-margin">
+					<div class="card search-form">
+						<div class="card-body p-0">
+							<form id="search-form" th:action="@{/articles}" method="get">
+								<div class="row">
+									<div class="col-12">
+										<div class="row no-gutters">
+											<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+												<select class="form-control" id="exampleFormControlSelect1" name="searchType">
+													<option th:each="searchType : ${searchTypes}"
+													th:value="${searchType.name}"
+													th:text="${searchType.description}"
+													th:selected="${param.searchType != null && (param.searchType.toString == searchType.name)}">Option</option>
+												</select>
+											</div>
+											<div class="col-lg-8 col-md-6 col-sm-12 p-0">
+												<input type="text" placeholder="Search..." class="form-control" id="search" name="searchValue" th:value="${param.searchValue}">
+											</div>
+											<div class="col-lg-1 col-md-3 col-sm-12 p-0">
+												<button type="submit" class="btn btn-base">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		<!-- Table Start -->
 		<div class="row">
@@ -29,17 +56,25 @@
 				<thead class="thead-light">
 				<tr>
 					<th scope="col"><a th:href="@{/articles(page=${articles.number},
-					sort='title' + (*{sort.getOrderFor('title')} != null ? (*{sort.getOrderFor('title').direction.name} != 'DESC' ? ',desc' : '') : ''))}">Title</a></th>
+					sort='title' + (*{sort.getOrderFor('title')} != null ? (*{sort.getOrderFor('title').direction.name} != 'DESC' ? ',desc' : '') : ''),
+					searchType=${param.searchType},
+					searchValue=${param.searchValue})}">Title</a></th>
 
 					<th scope="col"><a th:href="@{/articles(page=${articles.number},
-					sort='hashtag' + (*{sort.getOrderFor('hashtag')} != null ? (*{sort.getOrderFor('hashtag').direction.name} != 'DESC' ? ',desc' : '') : ''))}">Hashtag</a></th>
+					sort='hashtag' + (*{sort.getOrderFor('hashtag')} != null ? (*{sort.getOrderFor('hashtag').direction.name} != 'DESC' ? ',desc' : '') : ''),
+					searchType=${param.searchType},
+					searchValue=${param.searchValue})}">Hashtag</a></th>
 
 					<th scope="col"><a th:href="@{/articles(page=${articles.number},
-					sort='userAccount.userId' + (*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc' : '') : ''))}">Nickname</a></th>
+					sort='userAccount.userId' + (*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc' : '') : ''),
+					searchType=${param.searchType},
+					searchValue=${param.searchValue})}">Nickname</a></th>
 					<!-- Pageable 사용 시 JPA를 사용하게 되고 entity로 받아야하기 때문에 userAccount를 사용 -->
 
 					<th scope="col"><a th:href="@{/articles(page=${articles.number},
-					sort='createdAt' + (*{sort.getOrderFor('createdAt')} != null ? (*{sort.getOrderFor('createdAt').direction.name} != 'DESC' ? ',desc' : '') : ''))}">CreatedAt</a></th>
+					sort='createdAt' + (*{sort.getOrderFor('createdAt')} != null ? (*{sort.getOrderFor('createdAt').direction.name} != 'DESC' ? ',desc' : '') : ''),
+					searchType=${param.searchType},
+					searchValue=${param.searchValue})}">CreatedAt</a></th>
 				</tr>
 				</thead>
 				<tbody>

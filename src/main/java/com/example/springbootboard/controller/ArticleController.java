@@ -36,10 +36,11 @@ public class ArticleController {
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             Model model
     ) {
-        log.debug("ArticleController :: getArticles :: searchType = {}, searchValue = {}, pageable = {}", searchType, searchValue, pageable);
+        log.info("ArticleController :: getArticles :: searchType = {}, searchValue = {}, pageable = {}", searchType, searchValue, pageable);
         Page<ArticleResponse> articles = articleService.getArticles(searchType, searchValue, pageable).map(ArticleResponse::from);
         List<Integer> paginationBarNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), articles.getTotalPages());
         model.addAttribute("articles", articles);
+        model.addAttribute("searchTypes", SearchType.values());
         model.addAttribute("paginationBarNumbers", paginationBarNumbers);
 
         return "articles/index";
@@ -47,7 +48,7 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
-        log.debug("ArticleController :: getArticle :: id = {}", id);
+        log.info("ArticleController :: getArticle :: id = {}", id);
         ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(id));
         model.addAttribute("article", article);
         model.addAttribute("articleComments", article.articleCommentResponses());

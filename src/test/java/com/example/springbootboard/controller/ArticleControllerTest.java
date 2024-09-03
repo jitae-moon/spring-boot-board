@@ -1,6 +1,7 @@
 package com.example.springbootboard.controller;
 
 import com.example.springbootboard.config.SecurityConfig;
+import com.example.springbootboard.domain.type.SearchType;
 import com.example.springbootboard.dto.ArticleWithCommentsDto;
 import com.example.springbootboard.dto.UserAccountDto;
 import com.example.springbootboard.service.ArticleService;
@@ -60,6 +61,31 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("paginationBarNumbers"));
 
         then(articleService).should().getArticles(eq(null), eq(null), any(Pageable.class));
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
+    }
+
+    @DisplayName("[VIEW][GET] - List of articles with search parameters")
+    @Test
+    void givenSearchParams_whenSearchingArticles_thenReturnsArticlesView() throws Exception {
+        // Given
+        SearchType searchType = SearchType.TITLE;
+        String searchValue = "title";
+        given(articleService.getArticles(eq(searchType), eq(searchValue), any(Pageable.class)))
+                .willReturn(Page.empty());
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt()))
+                .willReturn(List.of(0, 1, 2, 3, 4));
+
+        // When & Then
+        mvc.perform(get("/articles")
+                        .queryParam("searchType", searchType.name())
+                        .queryParam("searchValue", searchValue))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/index"))
+                .andExpect(model().attributeExists("articles"))
+                        .andExpect(model().attributeExists("searchTypes"));
+
+        then(articleService).should().getArticles(eq(searchType), eq(searchValue), any(Pageable.class));
         then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
 

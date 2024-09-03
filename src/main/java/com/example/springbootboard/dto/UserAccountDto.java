@@ -25,7 +25,7 @@ public record UserAccountDto(
         return new UserAccountDto(userId, password, email, nickname, createdBy, createdAt, modifiedBy, modifiedAt);
     }
 
-    public UserAccountDto from(UserAccount userAccount) {
+    public static UserAccountDto from(UserAccount userAccount) {
         return new UserAccountDto(userAccount.getUserId(),
                 userAccount.getPassword(),
                 userAccount.getEmail(),

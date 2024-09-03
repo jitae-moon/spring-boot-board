@@ -1,9 +1,12 @@
 package com.example.springbootboard.controller;
 
 import com.example.springbootboard.domain.type.SearchType;
+import com.example.springbootboard.dto.response.ArticleResponse;
+import com.example.springbootboard.dto.response.ArticleWithCommentsResponse;
 import com.example.springbootboard.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -30,7 +33,8 @@ public class ArticleController {
             Model model
     ) {
         log.debug("ArticleController :: getArticles");
-        model.addAttribute("articles", articleService.getArticles(searchType, searchValue, pageable)); // TODO: Change to ArticleResponseDto
+        Page<ArticleResponse> articles = articleService.getArticles(searchType, searchValue, pageable).map(ArticleResponse::from);
+        model.addAttribute("articles", articles);
 
         return "articles/index";
     }
@@ -38,7 +42,9 @@ public class ArticleController {
     @GetMapping("/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
         log.debug("ArticleController :: getArticle :: id = {}", id);
-        model.addAttribute("article", articleService.getArticle(id)); // TODO: Change to ArticleWithCommentsResponseDto
+        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(id));
+        model.addAttribute("article", article);
+        model.addAttribute("articleComments", article.articleCommentResponses());
 
         return "articles/detail";
     }

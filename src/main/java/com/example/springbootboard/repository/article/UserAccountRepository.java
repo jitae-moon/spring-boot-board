@@ -1,4 +1,4 @@
-package com.example.springbootboard.repository;
+package com.example.springbootboard.repository.article;
 
 import com.example.springbootboard.domain.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;

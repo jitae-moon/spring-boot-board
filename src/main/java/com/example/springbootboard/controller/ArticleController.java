@@ -3,8 +3,8 @@ package com.example.springbootboard.controller;
 import com.example.springbootboard.domain.type.SearchType;
 import com.example.springbootboard.dto.response.ArticleResponse;
 import com.example.springbootboard.dto.response.ArticleWithCommentsResponse;
-import com.example.springbootboard.service.ArticleService;
-import com.example.springbootboard.service.PaginationService;
+import com.example.springbootboard.service.article.ArticleService;
+import com.example.springbootboard.service.article.PaginationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -54,6 +54,25 @@ public class ArticleController {
         model.addAttribute("articleComments", article.articleCommentResponses());
 
         return "articles/detail";
+    }
+
+    @GetMapping("/search-hashtag")
+    public String getHashtags(
+            @RequestParam(required = false) String searchValue,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+            Model model
+    ) {
+        log.info("ArticleController :: getHashtags :: searchValue = {}, pageable = {}", searchValue, pageable);
+        Page<ArticleResponse> articlesWithHashtag = articleService.getArticlesWithHashtag(searchValue, pageable).map(ArticleResponse::from);
+        List<String> hashtags = articleService.getDistinctHashtags();
+        List<Integer> paginationBarNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), articlesWithHashtag.getTotalPages());
+
+        model.addAttribute("articles", articlesWithHashtag);
+        model.addAttribute("hashtags", hashtags);
+        model.addAttribute("searchType", SearchType.HASHTAG);
+        model.addAttribute("paginationBarNumbers", paginationBarNumbers);
+
+        return "articles/search-hashtag";
     }
 
 }

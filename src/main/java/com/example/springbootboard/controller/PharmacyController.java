@@ -1,7 +1,7 @@
 package com.example.springbootboard.controller;
 
 import com.example.springbootboard.dto.UserInputDto;
-import com.example.springbootboard.service.PharmacyRecommendationService;
+import com.example.springbootboard.service.pharmacy.PharmacyRecommendationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

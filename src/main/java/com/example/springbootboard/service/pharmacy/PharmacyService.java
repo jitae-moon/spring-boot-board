@@ -1,7 +1,7 @@
-package com.example.springbootboard.service;
+package com.example.springbootboard.service.pharmacy;
 
 import com.example.springbootboard.domain.Pharmacy;
-import com.example.springbootboard.repository.PharmacyRepository;
+import com.example.springbootboard.repository.pharmacy.PharmacyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,10 @@
-package com.example.springbootboard.service;
+package com.example.springbootboard.service.article;
 
 import com.example.springbootboard.domain.Article;
 import com.example.springbootboard.domain.type.SearchType;
 import com.example.springbootboard.dto.ArticleDto;
 import com.example.springbootboard.dto.ArticleWithCommentsDto;
-import com.example.springbootboard.repository.ArticleRepository;
+import com.example.springbootboard.repository.article.ArticleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -59,6 +61,22 @@ public class ArticleService {
 
     public void deleteArticle(Long id) {
         articleRepository.deleteById(id);
+    }
+
+    public long getArticlesCount() {
+        return articleRepository.count();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ArticleDto> getArticlesWithHashtag(String hashtag, Pageable pageable) {
+        if (ObjectUtils.isEmpty(hashtag)) return Page.empty(pageable);
+
+        return articleRepository.findByHashtag(hashtag, pageable)
+                .map(ArticleDto::from);
+    }
+
+    public List<String> getDistinctHashtags() {
+        return articleRepository.findAllDistinctHashtags();
     }
 
 }

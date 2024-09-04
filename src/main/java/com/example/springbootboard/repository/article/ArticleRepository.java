@@ -1,7 +1,8 @@
-package com.example.springbootboard.repository;
+package com.example.springbootboard.repository.article;
 
 import com.example.springbootboard.domain.Article;
 import com.example.springbootboard.domain.QArticle;
+import com.example.springbootboard.repository.article.querydsl.CustomArticleRepository;
 import com.querydsl.core.types.dsl.StringExpression;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
         QuerydslPredicateExecutor<Article>,
-        QuerydslBinderCustomizer<QArticle> {
+        QuerydslBinderCustomizer<QArticle>,
+        CustomArticleRepository {
 
     Page<Article> findByTitleContaining(String title, Pageable pageable);
     Page<Article> findByContentContaining(String content, Pageable pageable);

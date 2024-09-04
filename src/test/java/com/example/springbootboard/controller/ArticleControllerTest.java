@@ -4,8 +4,8 @@ import com.example.springbootboard.config.SecurityConfig;
 import com.example.springbootboard.domain.type.SearchType;
 import com.example.springbootboard.dto.ArticleWithCommentsDto;
 import com.example.springbootboard.dto.UserAccountDto;
-import com.example.springbootboard.service.ArticleService;
-import com.example.springbootboard.service.PaginationService;
+import com.example.springbootboard.service.article.ArticleService;
+import com.example.springbootboard.service.article.PaginationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +105,47 @@ class ArticleControllerTest {
                 .andExpect(view().name("articles/detail"));
 
         then(articleService).should().getArticle(id);
+    }
+
+    @DisplayName("[VIEW][GET] - Hashtag Search page without search param")
+    @Test
+    void givenNothing_whenRequestingHashtagSearchView_thenReturnsHashtagSearchView() throws Exception {
+        // Given
+        given(articleService.getArticlesWithHashtag(eq(null), any(Pageable.class)))
+                .willReturn(Page.empty());
+
+        // When & Then
+        mvc.perform(get("/articles/search-hashtag"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/search-hashtag"))
+                .andExpect(model().attributeExists("articles"))
+                .andExpect(model().attributeExists("searchType"))
+                .andExpect(model().attributeExists("paginationBarNumbers"));
+
+        then(articleService).should().getArticlesWithHashtag(eq(null), any(Pageable.class));
+    }
+
+    @DisplayName("[VIEW][GET] - Hashtag Search page with search param")
+    @Test
+    void givenHashtag_whenRequestingHashtagSearchView_thenReturnsHashtagSearchView() throws Exception {
+        // Given
+        String hashtag = "#java";
+        given(articleService.getArticlesWithHashtag(eq(hashtag), any(Pageable.class)))
+                .willReturn(Page.empty());
+
+        // When & Then
+        mvc.perform(get("/articles/search-hashtag")
+                        .queryParam("searchValue", hashtag))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/search-hashtag"))
+                .andExpect(model().attributeExists("articles"))
+                .andExpect(model().attributeExists("searchType"))
+                .andExpect(model().attributeExists("hashtags"))
+                .andExpect(model().attributeExists("paginationBarNumbers"));
+
+        then(articleService).should().getArticlesWithHashtag(eq(hashtag), any(Pageable.class));
     }
 
     private ArticleWithCommentsDto createArticleWithCommentsDto() {

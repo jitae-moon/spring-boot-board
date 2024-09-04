@@ -1,8 +1,8 @@
-package com.example.springbootboard.service;
+package com.example.springbootboard.service.article;
 
 import com.example.springbootboard.dto.ArticleCommentDto;
-import com.example.springbootboard.repository.ArticleCommentRepository;
-import com.example.springbootboard.repository.ArticleRepository;
+import com.example.springbootboard.repository.article.ArticleCommentRepository;
+import com.example.springbootboard.repository.article.ArticleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

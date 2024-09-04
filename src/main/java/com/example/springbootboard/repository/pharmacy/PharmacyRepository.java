@@ -1,4 +1,4 @@
-package com.example.springbootboard.repository;
+package com.example.springbootboard.repository.pharmacy;
 
 import com.example.springbootboard.domain.Pharmacy;
 import org.springframework.data.jpa.repository.JpaRepository;

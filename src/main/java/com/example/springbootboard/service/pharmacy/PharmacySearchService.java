@@ -1,4 +1,4 @@
-package com.example.springbootboard.service;
+package com.example.springbootboard.service.pharmacy;
 
 import com.example.springbootboard.dto.PharmacyDto;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
-package com.example.springbootboard.service;
+package com.example.springbootboard.service.pharmacy;
 
 import com.example.springbootboard.domain.Distance;
 import com.example.springbootboard.dto.DocumentDto;
 import com.example.springbootboard.dto.PharmacyDto;
-import com.example.springbootboard.repository.DistanceRepository;
+import com.example.springbootboard.repository.pharmacy.DistanceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

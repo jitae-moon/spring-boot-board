@@ -92,20 +92,44 @@
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Previous">
+					<a class="page-link" aria-label="Previous"
+					   th:href="@{/articles(
+					   page=${articles.number - 1},
+					   sort=${param.sort},
+					   searchType=${param.searchType},
+					   searchValue=${param.searchValue}
+					   )}"
+					>
 						<span aria-hidden="true">&laquo;</span>
 					</a>
 				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item" th:each="paginationBarNumber : ${paginationBarNumbers}">
+					<a th:class="'page-link' + (${articles.number == paginationBarNumber ? ' disabled' : ''})"
+					   th:text="${paginationBarNumber + 1}"
+					   th:href="@{/articles(
+					   page=${paginationBarNumber},
+					   sort=${param.sort},
+					   searchType=${param.searchType},
+					   searchValue=${param.searchValue}
+					   )}"
+					>
+					</a>
+				</li>
 				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Next">
+					<a class="page-link" href="#" aria-label="Next"
+					   th:href="@{/articles(
+					   page=${articles.number + 1},
+					   sort=${param.sort},
+					   searchType=${param.searchType},
+					   searchValue=${param.searchValue}
+					   )}"
+					>
 						<span aria-hidden="true">&raquo;</span>
 					</a>
 				</li>
 			</ul>
 		</nav>
+		</div>
 		</div>
 	</main>
 	<!-- Table End -->

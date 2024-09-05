@@ -11,10 +11,15 @@ public class PaginationService {
     private static final int BAR_LENGTH = 5;
 
     public List<Integer> getPaginationBarNumbers(int currentPageNumber, int totalPages) {
-        int startNumber = Math.min(Math.max(currentPageNumber - (BAR_LENGTH / 2), 0), totalPages - BAR_LENGTH);
-        int endNumber = Math.min(startNumber + BAR_LENGTH, totalPages);
+        int startNumber = Math.max(currentPageNumber - (BAR_LENGTH / 2), 0);
+        int endNumber = startNumber + BAR_LENGTH - 1;
 
-        return IntStream.range(startNumber, endNumber).boxed().toList();
+        if (endNumber > totalPages - 1) {
+            endNumber = totalPages - 1;
+            startNumber = Math.max(endNumber - BAR_LENGTH + 1, 0);
+        }
+
+        return IntStream.range(startNumber, endNumber + 1).boxed().toList();
     }
 
     public int getBarLength() {

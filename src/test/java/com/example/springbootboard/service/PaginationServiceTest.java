@@ -38,7 +38,8 @@ class PaginationServiceTest {
                 Arguments.of(5, 10, List.of(3, 4, 5, 6, 7)),
                 Arguments.of(6, 10, List.of(4, 5, 6, 7, 8)),
                 Arguments.of(7, 10, List.of(5, 6, 7, 8, 9)),
-                Arguments.of(8, 10, List.of(5, 6, 7, 8, 9))
+                Arguments.of(8, 10, List.of(5, 6, 7, 8, 9)),
+                Arguments.of(9, 10, List.of(5, 6, 7, 8, 9))
         );
     }
 

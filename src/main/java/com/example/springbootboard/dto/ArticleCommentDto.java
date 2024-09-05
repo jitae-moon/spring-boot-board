@@ -2,7 +2,6 @@ package com.example.springbootboard.dto;
 
 import com.example.springbootboard.domain.Article;
 import com.example.springbootboard.domain.ArticleComment;
-import com.example.springbootboard.domain.UserAccount;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +13,14 @@ public record ArticleCommentDto(
         String modifiedBy,
         LocalDateTime modifiedAt,
         Article article,
-        UserAccount userAccount
+        UserAccountDto userAccountDto
 ) {
-    public static ArticleCommentDto of(Long id, String content, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, Article article, UserAccount userAccount) {
-        return new ArticleCommentDto(id, content, createdBy, createdAt, modifiedBy, modifiedAt, article, userAccount);
+    public static ArticleCommentDto of(Long id, String content, String createdBy, LocalDateTime createdAt, String modifiedBy, LocalDateTime modifiedAt, Article article, UserAccountDto userAccountDto) {
+        return new ArticleCommentDto(id, content, createdBy, createdAt, modifiedBy, modifiedAt, article, userAccountDto);
+    }
+
+    public static ArticleCommentDto of(Long articleId, String content, UserAccountDto userAccountDto) {
+        return new ArticleCommentDto(articleId, content, null, null, null, null, null, userAccountDto);
     }
 
     public static ArticleCommentDto from(ArticleComment articleComment) {
@@ -29,12 +32,12 @@ public record ArticleCommentDto(
                 articleComment.getModifiedBy(),
                 articleComment.getModifiedAt(),
                 articleComment.getArticle(),
-                articleComment.getUserAccount()
+                UserAccountDto.from(articleComment.getUserAccount())
                 );
     }
 
     public ArticleComment toEntity() {
-        return ArticleComment.of(this.content, this.article, this.userAccount);
+        return ArticleComment.of(this.content, this.article, userAccountDto.toEntity());
     }
 
 }

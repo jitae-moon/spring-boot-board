@@ -17,15 +17,14 @@ public record ArticleCommentResponse(
     }
 
     public static ArticleCommentResponse from(ArticleCommentDto dto) {
-        String nickname = dto.userAccount().getNickname();
-
-        if (ObjectUtils.isEmpty(nickname)) nickname = dto.userAccount().getUserId();
+        String nickname = dto.userAccountDto().nickname();
+        if (ObjectUtils.isEmpty(nickname)) nickname = dto.userAccountDto().userId();
 
         return new ArticleCommentResponse(
                 dto.id(),
                 dto.content(),
                 dto.createdAt(),
-                dto.userAccount().getEmail(),
+                dto.userAccountDto().email(),
                 nickname
         );
     }

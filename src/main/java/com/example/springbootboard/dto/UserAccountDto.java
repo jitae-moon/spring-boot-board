@@ -36,6 +36,10 @@ public record UserAccountDto(
                 userAccount.getModifiedAt());
     }
 
+    public static UserAccountDto of(String username, String password, String email, String nickname) {
+        return UserAccountDto.of(username, password, email, nickname, null, null, null, null);
+    }
+
     public UserAccount toEntity() {
         return UserAccount.of(userId, password, email, nickname);
     }
